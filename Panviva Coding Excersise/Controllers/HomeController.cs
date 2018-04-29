@@ -33,7 +33,7 @@ namespace Panviva_Coding_Excersise.Controllers
             //Check if the input is empty.
             if (String.IsNullOrEmpty(input))
             {
-                //ViewData["UserName"] = "empty";
+                ViewData["UserName"] = "empty";
                 return View();
             }
             ViewData["UserName"] = "Username not found";
@@ -363,15 +363,13 @@ namespace Panviva_Coding_Excersise.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Find GitHub User";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 

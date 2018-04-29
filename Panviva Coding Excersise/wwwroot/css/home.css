@@ -6,6 +6,7 @@
 .column2 {
     float: right;
     width: 75%;
+
 }
 /* Clear floats after the columns */
 .row:after {
@@ -26,13 +27,23 @@ img {
 html +.sticky {
     padding-top: 102px;
 }
-hr {
+#hr1 {
     color:cornflowerblue;
     display: block;
     margin-top: 0.5em;
     margin-bottom: 0.01em;
     margin-left: auto;
     margin-right: 2.5em;
+    border-style: groove;
+    border-width: 1px;
+}
+#hr2 {
+    color: cornflowerblue;
+    display: block;
+    margin-top: 0.01em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: 3.5px;
     border-style: groove;
     border-width: 1px;
 }
