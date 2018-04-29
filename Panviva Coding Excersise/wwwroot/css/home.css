@@ -1,5 +1,12 @@
 ﻿body {
 }
-#tblrow{
-    width:400px
+
+img {
+    border-radius: 10px;
+    object-fit: cover;
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 300px
 }

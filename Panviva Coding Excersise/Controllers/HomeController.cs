@@ -65,12 +65,30 @@ namespace Panviva_Coding_Excersise.Controllers
             ViewData["avatar_url"] = avatar_url;
             ViewData["html_url"] = html_url; 
             ViewData["name"] = name;
-            ViewData["company"] = company;
+            if (company != null)
+                ViewData["company"] = company;
+            else
+                ViewData["company"] = "N/A";
+            if (blog != null)
             ViewData["blog"] = blog;
+            else
+                ViewData["blog"] = "N/A";
+            if (location !=null)
             ViewData["location"] = location;
+            else
+                ViewData["location"] = "N/A";
+            if (email !=null)
             ViewData["email"] = email;
-            ViewData["hireable"] = hireable;
+            else
+                ViewData["email"] = "N/A";
+            if (hireable != null)
+                ViewData["hireable"] = hireable;
+            else
+                ViewData["hireable"] = "N/A";
+            if (bio != null)
             ViewData["bio"] = bio;
+            else
+                ViewData["bio"] = "N/A";
             await GetSubDetailsAsync(followers_url);
             ViewBag.AllFollowers = Data;
             await GetSubDetailsAsync(following_url);
@@ -91,6 +109,7 @@ namespace Panviva_Coding_Excersise.Controllers
                     HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, gists_url);
                     // Add our custom headers https://api.github.com/users/nirav/followers
                     requestMessage.Headers.Add("User-Agent", "User-Agent-Here");
+                    requestMessage.Headers.Add("Authorization", "token e74f57caee7c8c22ff71d49590f63ee66b8921ad");
                     HttpResponseMessage response = await client.SendAsync(requestMessage);
                     response.EnsureSuccessStatusCode();
                     var Result = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
@@ -133,7 +152,7 @@ namespace Panviva_Coding_Excersise.Controllers
                                 }
                                 /*if (String.IsNullOrEmpty(name))
                                     continue;*/
-                                AllGists.Add(namedescription,url);
+                                AllGists.Add(url, namedescription);
                             }
                         }
 
@@ -157,6 +176,7 @@ namespace Panviva_Coding_Excersise.Controllers
                     HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, repos_url);
                     // Add our custom headers https://api.github.com/users/nirav/followers
                     requestMessage.Headers.Add("User-Agent", "User-Agent-Here");
+                    requestMessage.Headers.Add("Authorization", "token e74f57caee7c8c22ff71d49590f63ee66b8921ad");
                     HttpResponseMessage response = await client.SendAsync(requestMessage);
                     response.EnsureSuccessStatusCode();
                     var Result = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
@@ -210,6 +230,7 @@ namespace Panviva_Coding_Excersise.Controllers
                     HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
                     // Add our custom headers https://api.github.com/users/nirav/followers
                     requestMessage.Headers.Add("User-Agent", "User-Agent-Here");
+                    requestMessage.Headers.Add("Authorization", "token e74f57caee7c8c22ff71d49590f63ee66b8921ad");
                     HttpResponseMessage response = await client.SendAsync(requestMessage);
                     response.EnsureSuccessStatusCode();
                     var Result = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
@@ -262,6 +283,7 @@ namespace Panviva_Coding_Excersise.Controllers
                     HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/users/" + input);
                     // Add our custom headers https://api.github.com/users/nirav
                     requestMessage.Headers.Add("User-Agent", "User-Agent-Here");
+                    requestMessage.Headers.Add("Authorization", "token e74f57caee7c8c22ff71d49590f63ee66b8921ad");
                     HttpResponseMessage response = await client.SendAsync(requestMessage);
                     response.EnsureSuccessStatusCode();
                     var Result = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());

@@ -1,8 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Find GitHub User";
 }
+@section scripts {
+
+    <script type="text/javascript">
+        // When the user scrolls the page, execute myFunction 
+        window.onscroll = function () { myFunction() };
+
+        // Get the header
+        var header = document.getElementById("myHeader");
+
+        // Get the offset position of the navbar
+        var sticky = header.offsetTop;
+
+        // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function myFunction() {
+            if (window.pageYOffset >= sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+
+    </script>
+
+}
 <head>
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <link rel="stylesheet" type="text/css" href="~/css/home.css">
 </head>
 
 <h2>Find GitHub User</h2>
@@ -22,121 +46,149 @@
     {<br /><br />
         <table border="1">
             <tr>
-                <td>
-                    @{if (!String.IsNullOrEmpty((String)ViewData["avatar_url"]))
-                        {<img  width="300" height="300" src="@ViewData["avatar_url"]" alt="sample image" /> }
-                        else
-                        {<img  width="300" height="300" src="~/images/" alt="sampl" /> }
-                    }
+                <td valign="top" style="max-width:300px;">
+                    <table border="1">
+                        <tr>
+                            <td height="300" width="300">
+                                @{if (!String.IsNullOrEmpty((String)ViewData["avatar_url"]))
+                                    {<img width="300" height="300" src="@ViewData["avatar_url"]" alt="sample image" /> }
+                                    else
+                                    {<img width="300" height="300" src="~/images/" alt="sampl" /> }
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h2 align="center"><b>@ViewData["name"]</b></h2></td>
+                        </tr>
+                        <tr>
+                            <td><h3><b>ID: </b>@ViewData["id"]</h3></td>
+                        </tr>
+                        <tr>
+                            <td><img width="20" height="20" src="~/images/blog_icon.png" alt="Blog" /><a href="@ViewData["blog"]">@ViewData["blog"]</a></td>
+                        </tr>
+                        <tr>
+                            <td><img width="20" height="20" src="~/images/location_icon.png" alt="Loc" /> @ViewData["location"]</td>
+                        </tr>
+                        <tr>
+                            <td><img width="20" height="25" src="~/images/email_icon.png" alt="Email" />@if (!ViewData["email"].ToString().Equals("N/A")) {<a href="mailto:@ViewData["email"]">@ViewData["email"]</a>} else { @ViewData["email"]}</td>
+                        </tr>
+                        <tr><td height="20"></td></tr>
+                        <tr>
+                            <td>hireable: @ViewData["hireable"]</td>
+                        </tr>
+                        <tr>
+                            <td>company: @ViewData["company"]</td>
+                        </tr>
+                        <tr>
+                            <td>Public Gists: @ViewData["public_gists"]</td>
+                        </tr>
+                        <tr>
+                            <td>Public Repos: @ViewData["public_repos"]</td>
+                        </tr>
+                        <tr>
+                            <td>Followers: @ViewData["followers"]</td>
+                        </tr>
+                        <tr>
+                            <td>Following: @ViewData["following"]</td>
+                        </tr>
+                        <tr>
+
+                            
+
+                        </tr>
+
+                    </table>
                 </td>
-                <td><h3> html_url = <a href="@ViewData["html_url"]">@ViewData["html_url"]</a></h3></td>
-                <td>
-                    @if (ViewBag.AllFollowings != null)
-                    {<h4>Followings:</h4>
-                        @for (int i = 0; i < ((ViewBag.AllFollowings).Length); i++)
-                        {
-                            <ul>
-                                <li><a href="@Url.Action("Index", "Home", new { input = ViewBag.AllFollowings[i] })">@ViewBag.AllFollowings[i]</a></li>
-                            </ul>
-                        }
-                    }
-            </td>
-            <td rowspan="8">
-                @if (ViewBag.AllFollowers != null)
-                {
-                    <H4>Followers:</H4>
-                    @for (int i = 0; i < ((ViewBag.AllFollowers).Length); i++)
-                    {
-                        <ul>
-                            <li><a href="@Url.Action("Index", "Home", new { input = ViewBag.AllFollowers[i] })">@ViewBag.AllFollowers[i]</a></li>
-                        </ul>
-                    }
-                }
-            </td>
-        </tr>
-        <tr>
-            <td><h2 align="center">@ViewData["name"]</h2></td>
-        </tr>
-        <tr>
-            <td><h3>@ViewData["id"]</h3></td>
-        </tr>
-        <tr>
-            <td>company = @ViewData["company"]</td>
-        </tr>
-        <tr>
-            <td>blog = @ViewData["blog"]</td>
-        </tr>
-        <tr>
-            <td>public_repos = @ViewData["public_repos"]</td>
-        </tr>
-        <tr>
-            <td>location = @ViewData["location"]</td>
-        </tr>
-        <tr>
-            <td>email = @ViewData["email"]</td>
-        </tr>
-        <tr>
-            <td>hireable = @ViewData["hireable"]</td>
-        </tr>
-        <tr>
-
-            <td>
-                @if (ViewBag.AllRepos != null)
-                {
-                    <h4>repos:</h4>
-                    @foreach (KeyValuePair<string, string> kvp in ViewBag.AllRepos)
-                    {
-                    <ul>
-                        @{ViewData["repolink"] = "https://github.com/" + ViewData["username"] + "/" + kvp.Key;}
-                            <li><a href=@ViewData["repolink"]>@kvp.Key</a></li>
-                        @kvp.Value
-                        
-                    </ul>
-                    }
-                }
-        </td>
-        <td>
-            @if (ViewBag.AllGists != null)
+                <td style="padding-left:5em">
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <h3> GitHub Profile: <a href="@ViewData["html_url"]">@ViewData["html_url"]</a></h3>
+                                <b>About:</b> @ViewData["bio"]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @if (ViewBag.AllFollowers != null)
             {
-                <h4>Gists:</h4>
-                @foreach (KeyValuePair<string, string> kvp in ViewBag.AllGists)
-                {
-                <ul>
-                    @{ViewData["gistlink"] = kvp.Value;
-                        string[] words = kvp.Key.Split(new[] { "&&&" }, StringSplitOptions.RemoveEmptyEntries);
-                    }
-                    <li><a href=@kvp.Value>@words[0]</a></li>
-                    @if (words.Length == 2)
-                    { @words[1]}
-
-               </ul>
-                }
-            }
-    </td>
-</tr>
-
-</table>
-
-<p>
-    <ul>
-        <li>
-            
-        <li>
-            public_gists = @ViewData["public_gists"]
-        <li>
-            followers = @ViewData["followers"]
-        <li>
-            following = @ViewData["following"]
-        <li>
-           
-        <li>
-            <b>About:</b> @ViewData["bio"]
-    </ul>
-</p>
-@if (ViewData["DEBUG"] != null)
+                    <H4>Followers:</H4>
+                    <table style="width:100%" border="1">
+                        @for (int i = 0; i < ((ViewBag.AllFollowers).Length); i++)
+    {@if (i % 4 == 0)
 {
-    <h3> @ViewData["DEBUG"]</h3>
-    }
+                    <tr><td></td></tr>}
+else
+{
+                    <td style="padding-left:2em"><a href="@Url.Action("Index", "Home", new { input = ViewBag.AllFollowers[i] })">@ViewBag.AllFollowers[i]</a></td>}
 
 }
+                    </table>
+}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @if (ViewBag.AllFollowings != null)
+            {<h4>Followings:</h4>
+             <table style="width:100%" border="1">
+                 @for (int i = 0; i < ((ViewBag.AllFollowings).Length); i++)
+    {
+             @if (i % 4 == 0)
+{
+             <tr><td></td></tr>}
+else
+{
+             <td style="padding-left:2em"><a href="@Url.Action("Index", "Home", new { input = ViewBag.AllFollowings[i] })">@ViewBag.AllFollowings[i]</a></td>}
+}
+             </table>
+}
+</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @if (ViewBag.AllGists != null)
+                                {
+                                    <h4>Gists:</h4>
+                                    @foreach (KeyValuePair<string, string> kvp in ViewBag.AllGists)
+                                    {
+                                        <ul>
+                                            @{ViewData["gistlink"] = kvp.Key;
+                                                string[] words = kvp.Value.Split(new[] { "&&&" }, StringSplitOptions.RemoveEmptyEntries);
+                                            }
+                                            <li><a href=@kvp.Key>@words[0]</a></li>
+                                            @if (words.Length == 2)
+                                            {@words[1]}
+
+                                        </ul>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @if (ViewBag.AllRepos != null)
+        {
+                        <h4>repos:</h4>
+                        @foreach (KeyValuePair<string, string> kvp in ViewBag.AllRepos)
+{
+                        <ul>
+                            @{ViewData["repolink"] = "https://github.com/" + ViewData["username"] + "/" + kvp.Key;}
+                            <li><a href=@ViewData["repolink"]>@kvp.Key</a></li>
+                            @kvp.Value
+
+                        </ul>
+}
+}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        @if (ViewData["DEBUG"] != null)
+        {
+            <h3> @ViewData["DEBUG"]</h3>
+        }
+
+    }
 }
